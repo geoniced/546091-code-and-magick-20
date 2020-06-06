@@ -108,7 +108,8 @@ var renderWizards = function (wizard) {
   return wizardElement;
 };
 
-var renderSetupSimilarWizards = function (listElement, wizards) {
+var renderSetupSimilarWizards = function (listElement) {
+  var wizards = getWizards(WIZARD_AMOUNT);
   var fragment = document.createDocumentFragment();
 
   for (var i = 0; i < wizards.length; i++) {
@@ -118,7 +119,6 @@ var renderSetupSimilarWizards = function (listElement, wizards) {
   listElement.appendChild(fragment);
 };
 
-var wizards = getWizards(WIZARD_AMOUNT);
-renderSetupSimilarWizards(similarListElement, wizards);
+renderSetupSimilarWizards(similarListElement);
 
 userDialog.querySelector('.setup-similar').classList.remove('hidden');
