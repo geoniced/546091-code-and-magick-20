@@ -130,9 +130,10 @@ userDialog.querySelector('.setup-similar').classList.remove('hidden');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = document.querySelector('.setup-close');
 var setup = document.querySelector('.setup'); // Этот селектор уже имеется в одной из переменных выше, но мне кажется, что при разбитии кода на модули оно понадобится
+var userNameInput = document.querySelector('.setup-user-name');
 
 var onPopupEscPress = function (evt) {
-  if (evt.key === 'Escape') {
+  if (evt.key === 'Escape' && evt.target !== userNameInput) {
     evt.preventDefault();
     closePopup();
   }
@@ -169,8 +170,6 @@ setupClose.addEventListener('keydown', function (evt) {
     closePopup();
   }
 });
-
-var userNameInput = document.querySelector('.setup-user-name');
 
 userNameInput.addEventListener('invalid', function () {
   if (userNameInput.validity.valueMissing) {
