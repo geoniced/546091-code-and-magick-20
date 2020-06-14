@@ -41,6 +41,14 @@ var EYE_COLORS = [
   'green'
 ];
 
+var FIREBALL_COLORS = [
+  '#ee4830',
+  '#30a8ee',
+  '#5ce6c0',
+  '#e848d5',
+  '#e6e848'
+];
+
 // from module4-task1
 var MIN_NAME_LENGTH = 2;
 var MAX_NAME_LENGTH = 25;
@@ -75,19 +83,23 @@ var getCoatColor = function () {
   return COAT_COLORS[getRandomIndex(COAT_COLORS)];
 };
 
-var getEyeColor = function () {
+var getEyesColor = function () {
   return EYE_COLORS[getRandomIndex(EYE_COLORS)];
+};
+
+var getFireballColor = function () {
+  return FIREBALL_COLORS[getRandomIndex(FIREBALL_COLORS)];
 };
 
 var getWizard = function () {
   var name = getFullName();
   var coatColor = getCoatColor();
-  var eyeColor = getEyeColor();
+  var eyesColor = getEyesColor();
 
   return {
     name: name,
     coatColor: coatColor,
-    eyeColor: eyeColor
+    eyesColor: eyesColor
   };
 };
 
@@ -106,7 +118,7 @@ var createWizard = function (wizard) {
 
   wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
   wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-  wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyeColor;
+  wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
 
   return wizardElement;
 };
@@ -132,6 +144,14 @@ var setupClose = document.querySelector('.setup-close');
 var setup = document.querySelector('.setup'); // Этот селектор уже имеется в одной из переменных выше, но мне кажется, что при разбитии кода на модули оно понадобится
 var userNameInput = document.querySelector('.setup-user-name');
 
+var wizardCoat = document.querySelector('.setup-wizard .wizard-coat');
+var wizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
+var wizardFireball = document.querySelector('.setup-fireball-wrap');
+
+var coatColorInput = document.querySelector('input[name="coat-color"]');
+var eyesColorInput = document.querySelector('input[name="eyes-color"]');
+var fireballColorInput = document.querySelector('input[name="fireball-color"]');
+
 var onPopupEscPress = function (evt) {
   if (evt.key === 'Escape' && evt.target !== userNameInput) {
     evt.preventDefault();
@@ -139,16 +159,43 @@ var onPopupEscPress = function (evt) {
   }
 };
 
+var onWizardCoatPress = function () {
+  var coatColor = getCoatColor();
+
+  wizardCoat.style.fill = coatColor;
+  coatColorInput.value = coatColor;
+};
+
+var onWizardEyesPress = function () {
+  var eyesColor = getEyesColor();
+
+  wizardEyes.style.fill = eyesColor;
+  eyesColorInput.value = eyesColor;
+};
+
+var onWizardFireballPress = function () {
+  var fireballColor = getFireballColor();
+
+  wizardFireball.style.backgroundColor = fireballColor;
+  fireballColorInput.value = fireballColor;
+};
+
 var openPopup = function () {
   setup.classList.remove('hidden');
 
   document.addEventListener('keydown', onPopupEscPress);
+  wizardCoat.addEventListener('click', onWizardCoatPress);
+  wizardEyes.addEventListener('click', onWizardEyesPress);
+  wizardFireball.addEventListener('click', onWizardFireballPress);
 };
 
 var closePopup = function () {
   setup.classList.add('hidden');
 
   document.removeEventListener('keydown', onPopupEscPress);
+  wizardCoat.removeEventListener('click', onWizardCoatPress);
+  wizardEyes.removeEventListener('click', onWizardEyesPress);
+  wizardFireball.removeEventListener('click', onWizardFireballPress);
 };
 
 setupOpen.addEventListener('click', function () {
