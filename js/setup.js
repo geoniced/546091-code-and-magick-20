@@ -46,7 +46,6 @@ var MIN_NAME_LENGTH = 2;
 var MAX_NAME_LENGTH = 25;
 
 var userDialog = document.querySelector('.setup');
-userDialog.classList.remove('hidden');
 
 var similarListElement = userDialog.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template')
@@ -128,6 +127,49 @@ renderSetupSimilarWizards(similarListElement);
 userDialog.querySelector('.setup-similar').classList.remove('hidden');
 
 // module4-task1
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = document.querySelector('.setup-close');
+var setup = document.querySelector('.setup'); // Этот селектор уже имеется в одной из переменных выше, но мне кажется, что при разбитии кода на модули оно понадобится
+
+var onPopupEscPress = function (evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    closePopup();
+  }
+};
+
+var openPopup = function () {
+  setup.classList.remove('hidden');
+
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closePopup = function () {
+  setup.classList.add('hidden');
+
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+setupOpen.addEventListener('click', function () {
+  openPopup();
+});
+
+setupOpen.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    openPopup();
+  }
+});
+
+setupClose.addEventListener('click', function () {
+  closePopup();
+});
+
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    closePopup();
+  }
+});
+
 var userNameInput = document.querySelector('.setup-user-name');
 
 userNameInput.addEventListener('invalid', function () {
