@@ -41,6 +41,10 @@ var EYE_COLORS = [
   'green'
 ];
 
+// from module4-task1
+var MIN_NAME_LENGTH = 2;
+var MAX_NAME_LENGTH = 25;
+
 var userDialog = document.querySelector('.setup');
 userDialog.classList.remove('hidden');
 
@@ -122,3 +126,26 @@ var renderSetupSimilarWizards = function (listElement) {
 renderSetupSimilarWizards(similarListElement);
 
 userDialog.querySelector('.setup-similar').classList.remove('hidden');
+
+// module4-task1
+var userNameInput = document.querySelector('.setup-user-name');
+
+userNameInput.addEventListener('invalid', function () {
+  if (userNameInput.validity.valueMissing) {
+    userNameInput.setCustomValidity('Обязательное поле');
+  } else {
+    userNameInput.setCustomValidity('');
+  }
+});
+
+userNameInput.addEventListener('input', function () {
+  var valueLength = userNameInput.value.length;
+
+  if (valueLength < MIN_NAME_LENGTH) {
+    userNameInput.setCustomValidity('Ещё ' + (MIN_NAME_LENGTH - valueLength) + ' симв.');
+  } else if (valueLength > MAX_NAME_LENGTH) {
+    userNameInput.setCustomValidity('Удалите лишние ' + (MAX_NAME_LENGTH - valueLength) + ' симв.');
+  } else {
+    userNameInput.setCustomValidity('');
+  }
+});
