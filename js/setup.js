@@ -159,21 +159,21 @@ var onPopupEscPress = function (evt) {
   }
 };
 
-var onWizardCoatPress = function () {
+var onWizardCoatClick = function () {
   var coatColor = getCoatColor();
 
   wizardCoat.style.fill = coatColor;
   coatColorInput.value = coatColor;
 };
 
-var onWizardEyesPress = function () {
+var onWizardEyesClick = function () {
   var eyesColor = getEyesColor();
 
   wizardEyes.style.fill = eyesColor;
   eyesColorInput.value = eyesColor;
 };
 
-var onWizardFireballPress = function () {
+var onWizardFireballClick = function () {
   var fireballColor = getFireballColor();
 
   wizardFireball.style.backgroundColor = fireballColor;
@@ -184,18 +184,18 @@ var openPopup = function () {
   setup.classList.remove('hidden');
 
   document.addEventListener('keydown', onPopupEscPress);
-  wizardCoat.addEventListener('click', onWizardCoatPress);
-  wizardEyes.addEventListener('click', onWizardEyesPress);
-  wizardFireball.addEventListener('click', onWizardFireballPress);
+  wizardCoat.addEventListener('click', onWizardCoatClick);
+  wizardEyes.addEventListener('click', onWizardEyesClick);
+  wizardFireball.addEventListener('click', onWizardFireballClick);
 };
 
 var closePopup = function () {
   setup.classList.add('hidden');
 
   document.removeEventListener('keydown', onPopupEscPress);
-  wizardCoat.removeEventListener('click', onWizardCoatPress);
-  wizardEyes.removeEventListener('click', onWizardEyesPress);
-  wizardFireball.removeEventListener('click', onWizardFireballPress);
+  wizardCoat.removeEventListener('click', onWizardCoatClick);
+  wizardEyes.removeEventListener('click', onWizardEyesClick);
+  wizardFireball.removeEventListener('click', onWizardFireballClick);
 };
 
 setupOpen.addEventListener('click', function () {
