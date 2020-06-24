@@ -43,6 +43,8 @@ window.dialog = (function () {
 
   var closePopup = function () {
     setup.classList.add('hidden');
+    setup.style.top = '';
+    setup.style.left = '';
 
     document.removeEventListener('keydown', onPopupEscPress);
     wizardCoat.removeEventListener('click', onWizardCoatClick);
