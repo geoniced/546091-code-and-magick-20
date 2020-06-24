@@ -52,7 +52,7 @@ window.dialog = (function () {
 
   var setupOpen = document.querySelector('.setup-open');
   var setupClose = document.querySelector('.setup-close');
-  var setup = document.querySelector('.setup'); // Этот селектор уже имеется в одной из переменных выше, но мне кажется, что при разбитии кода на модули оно понадобится
+  var setup = document.querySelector('.setup');
   var userNameInput = document.querySelector('.setup-user-name');
 
   var wizardCoat = document.querySelector('.setup-wizard .wizard-coat');
