@@ -5,10 +5,10 @@ window.dialog = (function () {
   var MAX_NAME_LENGTH = 25;
 
   var onPopupEscPress = function (evt) {
-    if (evt.key === 'Escape' && evt.target !== userNameInput) {
-      evt.preventDefault();
+    window.util.isEscEvent(evt, function (escEvent) {
+      escEvent.preventDefault();
       closePopup();
-    }
+    }, [userNameInput]);
   };
 
   var onWizardCoatClick = function () {
@@ -68,9 +68,7 @@ window.dialog = (function () {
   });
 
   setupOpen.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Enter') {
-      openPopup();
-    }
+    window.util.isEnterEvent(evt, openPopup);
   });
 
   setupClose.addEventListener('click', function () {
@@ -78,9 +76,7 @@ window.dialog = (function () {
   });
 
   setupClose.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Enter') {
-      closePopup();
-    }
+    window.util.isEnterEvent(evt, closePopup);
   });
 
   userNameInput.addEventListener('invalid', function () {
