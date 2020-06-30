@@ -17,21 +17,22 @@ window.setup = (function () {
     var wizardElement = similarWizardTemplate.cloneNode(true);
 
     wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-    wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
+    wizardElement.querySelector('.wizard-coat').style.fill = wizard.colorCoat;
+    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.colorEyes;
 
     return wizardElement;
   };
 
   var renderSetupSimilarWizards = function (listElement) {
-    var wizards = getWizards(WIZARD_AMOUNT);
-    var fragment = document.createDocumentFragment();
+    window.backend.load(function (wizards) {
+      var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < wizards.length; i++) {
-      fragment.appendChild(createWizard(wizards[i]));
-    }
+      for (var i = 0; i < WIZARD_AMOUNT; i++) {
+        fragment.appendChild(createWizard(wizards[i]));
+      }
 
-    listElement.appendChild(fragment);
+      listElement.appendChild(fragment);
+    });
   };
 
   var userDialog = document.querySelector('.setup');
