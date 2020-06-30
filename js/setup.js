@@ -24,7 +24,7 @@ window.setup = (function () {
   };
 
   var renderSetupSimilarWizards = function (listElement) {
-    window.backend.load(function (wizards) {
+    var onLoad = function (wizards) {
       var fragment = document.createDocumentFragment();
 
       for (var i = 0; i < WIZARD_AMOUNT; i++) {
@@ -32,7 +32,21 @@ window.setup = (function () {
       }
 
       listElement.appendChild(fragment);
-    });
+    };
+
+    var onError = function (message) {
+      var errorMsg = document.createElement('div');
+      errorMsg.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+      errorMsg.style.position = 'absolute';
+      errorMsg.style.left = 0;
+      errorMsg.style.right = 0;
+      errorMsg.style.fontSize = '30px';
+
+      errorMsg.textContent = message;
+      document.body.insertAdjacentElement('afterbegin', errorMsg);
+    };
+
+    window.backend.load(onLoad, onError);
   };
 
   var userDialog = document.querySelector('.setup');
