@@ -23,6 +23,28 @@ window.setup = (function () {
     return wizardElement;
   };
 
+  var createErrorNotification = function (message) {
+    var errorMsg = document.createElement('div');
+    errorMsg.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    errorMsg.style.position = 'absolute';
+    errorMsg.style.left = 0;
+    errorMsg.style.right = 0;
+    errorMsg.style.fontSize = '30px';
+
+    errorMsg.textContent = message;
+
+    return errorMsg;
+  };
+
+  var onError = function (message) {
+    var errorMsg = createErrorNotification(message);
+    document.body.insertAdjacentElement('afterbegin', errorMsg);
+
+    setTimeout(function () {
+      document.body.removeChild(errorMsg);
+    }, 3000);
+  };
+
   var renderSetupSimilarWizards = function (listElement) {
     var onLoad = function (wizards) {
       var fragment = document.createDocumentFragment();
@@ -34,22 +56,21 @@ window.setup = (function () {
       listElement.appendChild(fragment);
     };
 
-    var onError = function (message) {
-      var errorMsg = document.createElement('div');
-      errorMsg.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
-      errorMsg.style.position = 'absolute';
-      errorMsg.style.left = 0;
-      errorMsg.style.right = 0;
-      errorMsg.style.fontSize = '30px';
-
-      errorMsg.textContent = message;
-      document.body.insertAdjacentElement('afterbegin', errorMsg);
-    };
-
     window.backend.load(onLoad, onError);
   };
 
+  var onFormSuccess = function () {
+    userDialog.classList.add('hidden');
+  };
+
+  var onFormSubmit = function (evt) {
+    evt.preventDefault();
+
+    window.backend.save(new FormData(form), onFormSuccess, onError);
+  };
+
   var userDialog = document.querySelector('.setup');
+  var form = userDialog.querySelector('.setup-wizard-form');
 
   var similarListElement = userDialog.querySelector('.setup-similar-list');
   var similarWizardTemplate = document.querySelector('#similar-wizard-template')
@@ -57,6 +78,7 @@ window.setup = (function () {
     .querySelector('.setup-similar-item');
 
   renderSetupSimilarWizards(similarListElement);
+  form.addEventListener('submit', onFormSubmit);
 
   userDialog.querySelector('.setup-similar').classList.remove('hidden');
 })();
