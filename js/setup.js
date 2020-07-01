@@ -3,16 +3,6 @@
 window.setup = (function () {
   var WIZARD_AMOUNT = 4;
 
-  var getWizards = function (amount) {
-    var wizardsList = [];
-
-    for (var i = 0; i < amount; i++) {
-      wizardsList.push(window.mocks.getWizard());
-    }
-
-    return wizardsList;
-  };
-
   var createWizard = function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
 
