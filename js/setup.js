@@ -86,15 +86,15 @@ window.setup = (function () {
   var coatColor = 'rgb(101, 137, 164)';
   var eyesColor = 'black';
 
-  window.wizard.onCoatChange = function (color) {
+  window.wizard.onCoatChange = window.debounce(function (color) {
     coatColor = color;
     updateWizards();
-  };
+  });
 
-  window.wizard.onEyesChange = function (color) {
+  window.wizard.onEyesChange = window.debounce(function (color) {
     eyesColor = color;
     updateWizards();
-  };
+  });
 
   renderSetupSimilarWizards();
   form.addEventListener('submit', onFormSubmit);
