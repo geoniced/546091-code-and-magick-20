@@ -11,34 +11,11 @@ window.dialog = (function () {
     }, [userNameInput]);
   };
 
-  var onWizardCoatClick = function () {
-    var coatColor = window.mocks.getCoatColor();
-
-    wizardCoat.style.fill = coatColor;
-    coatColorInput.value = coatColor;
-  };
-
-  var onWizardEyesClick = function () {
-    var eyesColor = window.mocks.getEyesColor();
-
-    wizardEyes.style.fill = eyesColor;
-    eyesColorInput.value = eyesColor;
-  };
-
-  var onWizardFireballClick = function () {
-    var fireballColor = window.mocks.getFireballColor();
-
-    wizardFireball.style.backgroundColor = fireballColor;
-    fireballColorInput.value = fireballColor;
-  };
-
   var openPopup = function () {
     setup.classList.remove('hidden');
 
     document.addEventListener('keydown', onPopupEscPress);
-    wizardCoat.addEventListener('click', onWizardCoatClick);
-    wizardEyes.addEventListener('click', onWizardEyesClick);
-    wizardFireball.addEventListener('click', onWizardFireballClick);
+    window.wizard.addWizardEventListeners();
   };
 
   var closePopup = function () {
@@ -47,23 +24,13 @@ window.dialog = (function () {
     setup.style.left = '';
 
     document.removeEventListener('keydown', onPopupEscPress);
-    wizardCoat.removeEventListener('click', onWizardCoatClick);
-    wizardEyes.removeEventListener('click', onWizardEyesClick);
-    wizardFireball.removeEventListener('click', onWizardFireballClick);
+    window.wizard.removeWizardEventListeners();
   };
 
   var setupOpen = document.querySelector('.setup-open');
   var setupClose = document.querySelector('.setup-close');
   var setup = document.querySelector('.setup');
   var userNameInput = document.querySelector('.setup-user-name');
-
-  var wizardCoat = document.querySelector('.setup-wizard .wizard-coat');
-  var wizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
-  var wizardFireball = document.querySelector('.setup-fireball-wrap');
-
-  var coatColorInput = document.querySelector('input[name="coat-color"]');
-  var eyesColorInput = document.querySelector('input[name="eyes-color"]');
-  var fireballColorInput = document.querySelector('input[name="fireball-color"]');
 
   setupOpen.addEventListener('click', function () {
     openPopup();
